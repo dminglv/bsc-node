@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  bsc-fullnode:
+    image: ghcr.io/bnb-chain/bsc:latest
+    container_name: bsc-fullnode
+    ports:
+      - "8545:8545"         # JSON-RPC HTTP
+      - "8546:8546"         # WebSocket
+      - "30311:30311"       # P2P TCP
+      - "30311:30311/udp"   # P2P UDP
+    volumes:
+      - ./config:/bsc/config
+      - ./data/node:/bsc/node
+    stop_signal: SIGINT
+    stop_grace_period: 2m
+    restart: unless-stopped
+    command: >
+      --datadir /bsc/node
+      --config /bsc/config/config.toml
+      --syncmode snap
+      --cache 8000
+      --snapshot=false
+      --pruneancient
+      --http
+      --http.addr 0.0.0.0
+      --http.port 8545
+      --http.vhosts '*'
+      --http.api eth,net,web3,txpool,debug
+      --ws
+      --ws.addr 0.0.0.0
+      --ws.port 8546
+      --ws.api eth,net,web3,txpool,debug
+      --port 30311
+      --verbosity 4

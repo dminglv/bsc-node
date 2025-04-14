@@ -20,7 +20,7 @@ services:
       --config /bsc/config/config.toml
       --syncmode snap
       --cache 8000
-      --snapshot=false
+      --snapshot=true
       --pruneancient
       --http
       --http.addr 0.0.0.0

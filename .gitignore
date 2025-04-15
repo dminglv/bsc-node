@@ -1,2 +1,9 @@
 .DS_Store
 .idea
+.env
+config/config.toml
+config/genesis.json
+monitoring/grafana
+data/node/geth*
+data/node/keystore
+data/node/bsc.log*
